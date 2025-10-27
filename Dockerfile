@@ -9,16 +9,13 @@ COPY package*.json ./
 COPY client/package*.json ./client/
 COPY server/package*.json ./server/
 
-# Install dependencies (including dev dependencies for building)
-RUN npm ci
-
 # Copy source code (excluding node_modules via .dockerignore)
 COPY . .
 
 # Clean any existing node_modules to ensure platform-specific binaries are correct
 RUN rm -rf node_modules client/node_modules server/node_modules
 
-# Reinstall dependencies to ensure correct platform binaries
+# Install dependencies (including dev dependencies for building)
 RUN npm ci
 
 # Build client
