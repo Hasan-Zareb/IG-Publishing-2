@@ -1,0 +1,27 @@
+{
+  "name": "instagram-reels-publisher",
+  "version": "1.0.0",
+  "description": "High-volume Instagram Reels publishing platform",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "docker:build": "docker build -t instagram-reels-publisher .",
+    "docker:run": "docker-compose up -d",
+    "docker:stop": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "deploy:heroku": "git subtree push --prefix=server heroku main",
+    "deploy:vercel": "vercel --prod",
+    "deploy:railway": "railway up"
+  },
+  "keywords": ["instagram", "reels", "social-media", "automation"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
