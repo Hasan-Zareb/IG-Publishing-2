@@ -76,7 +76,7 @@ router.get('/facebook', (req, res) => {
     return res.redirect('/api/auth/facebook/dev-login');
   }
   passport.authenticate('facebook', {
-    scope: ['email', 'pages_manage_posts', 'pages_read_engagement', 'instagram_basic']
+    scope: ['pages_manage_posts', 'pages_read_engagement', 'pages_show_list', 'instagram_basic']
   })(req, res);
 });
 

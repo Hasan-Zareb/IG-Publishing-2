@@ -11,6 +11,7 @@ const instagramRoutes = require('./routes/instagram');
 const postsRoutes = require('./routes/posts');
 const csvRoutes = require('./routes/csv');
 const dashboardRoutes = require('./routes/dashboard');
+const testOAuthRoutes = require('./routes/test-oauth');
 const scheduler = require('./services/scheduler');
 const { createTables } = require('./scripts/init-db');
 
@@ -47,6 +48,7 @@ app.use('/api/instagram', instagramRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/csv', csvRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/test', testOAuthRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
