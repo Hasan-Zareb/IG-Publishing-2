@@ -5,6 +5,7 @@ const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const { createTables } = require('../scripts/init-db');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgresql://localhost:5432/instagram_reels'
@@ -16,7 +17,7 @@ class SchedulerService {
     this.processingQueue = new Set();
   }
 
-  start() {
+  async start() {
     if (this.isRunning) {
       console.log('Scheduler is already running');
       return;
@@ -24,6 +25,17 @@ class SchedulerService {
 
     this.isRunning = true;
     console.log('🚀 Starting Instagram Reels Scheduler...');
+
+    // Ensure database tables exist before starting
+    try {
+      console.log('🔄 Ensuring database tables exist...');
+      await createTables();
+      console.log('✅ Database tables verified');
+    } catch (error) {
+      console.error('❌ Failed to initialize database:', error);
+      this.isRunning = false;
+      return;
+    }
 
     // Run every minute to check for scheduled posts
     cron.schedule('* * * * *', () => {

@@ -79,18 +79,21 @@ app.use('*', (req, res) => {
 // Initialize database and start server
 const startServer = async () => {
   try {
+    console.log('🔄 Starting database initialization...');
     // Initialize database tables
     await createTables();
+    console.log('✅ Database initialization completed');
     
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`📱 Environment: ${process.env.NODE_ENV || 'development'}`);
       
       // Start the scheduler
-      scheduler.start();
+      await scheduler.start();
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);
+    console.error('Error details:', error.message);
     process.exit(1);
   }
 };
