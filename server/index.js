@@ -12,6 +12,7 @@ const postsRoutes = require('./routes/posts');
 const csvRoutes = require('./routes/csv');
 const dashboardRoutes = require('./routes/dashboard');
 const scheduler = require('./services/scheduler');
+const { createTables } = require('./scripts/init-db');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -75,10 +76,23 @@ app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📱 Environment: ${process.env.NODE_ENV || 'development'}`);
-  
-  // Start the scheduler
-  scheduler.start();
-});
+// Initialize database and start server
+const startServer = async () => {
+  try {
+    // Initialize database tables
+    await createTables();
+    
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📱 Environment: ${process.env.NODE_ENV || 'development'}`);
+      
+      // Start the scheduler
+      scheduler.start();
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
