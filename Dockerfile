@@ -18,8 +18,11 @@ RUN rm -rf node_modules client/node_modules server/node_modules
 # Install dependencies (including dev dependencies for building)
 RUN npm ci
 
-# Build client
+# Install client dependencies specifically
 WORKDIR /app/client
+RUN npm ci
+
+# Build client
 RUN npm run build
 
 # Production stage
