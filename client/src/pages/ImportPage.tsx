@@ -45,7 +45,7 @@ export function ImportPage() {
   const [validationResult, setValidationResult] = useState<ImportResult | null>(null)
   const [showPreview, setShowPreview] = useState(false)
 
-  const { data: accounts } = useQuery(
+  useQuery(
     'instagram-accounts',
     () => api.get('/instagram/accounts').then(res => res.data.accounts)
   )

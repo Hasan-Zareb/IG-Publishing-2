@@ -4,16 +4,12 @@ import {
   FileText, 
   Calendar, 
   Play, 
-  Pause, 
   Trash2, 
-  Eye,
   Filter,
   Search,
-  MoreHorizontal,
   CheckCircle,
   Clock,
-  AlertCircle,
-  XCircle
+  AlertCircle
 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
